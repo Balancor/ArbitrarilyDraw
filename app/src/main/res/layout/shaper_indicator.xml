@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <RadioGroup
+        android:id="@+id/shape_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/shape_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_point_selector"
+            android:button="@null"
+            />
+        <RadioButton
+            android:id="@+id/shape_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_line_selector"
+            android:button="@null"
+            />
+        <RadioButton
+            android:id="@+id/shape_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_circle_selector"
+            android:button="@null"
+            />
+        <RadioButton
+            android:id="@+id/shape_middle_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_middle_line_selector"
+            android:button="@null"
+            />
+    </RadioGroup>
+
+
+</LinearLayout>

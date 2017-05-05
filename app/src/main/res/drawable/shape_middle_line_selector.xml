@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_enabled="false"
+        android:state_checked="false"
+        android:drawable="@drawable/tool_p_bisect_tool_inactive"/>
+
+    <item
+        android:state_enabled="true"
+        android:state_checked="false"
+        android:drawable="@drawable/tool_p_bisect_tool_inactive"/>
+    <item
+        android:state_enabled="true"
+        android:state_checked="true"
+        android:drawable="@drawable/tool_p_bisect_tool_active" />
+
+</selector>
+
