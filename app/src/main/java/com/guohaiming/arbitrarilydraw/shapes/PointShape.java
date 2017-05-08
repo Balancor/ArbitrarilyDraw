@@ -6,6 +6,8 @@ import android.graphics.Point;
 
 import com.guohaiming.arbitrarilydraw.Shape;
 
+import java.util.ArrayList;
+
 /**
  * Created by guoguo on 17-5-5.
  */
@@ -21,4 +23,5 @@ public class PointShape extends Shape {
         Point point = mPoints.get(0);
         canvas.drawCircle(point.x, point.y, RCICLE_ADIUS, mPaint);
     }
+
 }

@@ -6,10 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.RadioGroup;
-
-
 
 public class MainActivity extends Activity {
     RadioGroup mShapeRadioGroup;
@@ -79,12 +78,18 @@ public class MainActivity extends Activity {
         int action = event.getAction();
         switch (action){
             case MotionEvent.ACTION_DOWN:
-
                 mCurrentShape = Shape.createShape(mCurrentShapeFormat,mCurrentPaint);
-                mCurrentShape.addPoint(new Point((int)event.getX(), (int)event.getY()));
-
+                mCurrentShape.startToDrawShape();
+                Point startPoint = new Point((int)event.getX(), (int)event.getY());
                 Sketch topSketch = mDrawingState.getTopSketch();
+                Point targetPoint = topSketch.getNearExistedPoint(startPoint);
+                if(targetPoint != null) {
+                    mCurrentShape.addPoint(targetPoint);
+                } else {
+                    mCurrentShape.addPoint(startPoint);
+                }
                 topSketch.addShape(mCurrentShape);
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 mCurrentShape.addPoint(new Point((int)event.getX(), (int)event.getY()));
@@ -93,6 +98,7 @@ public class MainActivity extends Activity {
 
             case MotionEvent.ACTION_UP:
                 mCurrentShape.addPoint(new Point((int)event.getX(), (int)event.getY()));
+                mCurrentShape.finishedToDrawShape();
                 break;
         }
 

@@ -6,6 +6,8 @@ import android.graphics.Point;
 
 import com.guohaiming.arbitrarilydraw.Shape;
 
+import java.util.ArrayList;
+
 /**
  * Created by guoguo on 17-5-5.
  */

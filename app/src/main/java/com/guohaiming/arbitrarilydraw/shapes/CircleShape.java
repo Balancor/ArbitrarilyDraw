@@ -3,8 +3,11 @@ package com.guohaiming.arbitrarilydraw.shapes;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.guohaiming.arbitrarilydraw.Shape;
+
+import java.util.ArrayList;
 
 /**
  * Created by guoguo on 17-5-5.
@@ -26,7 +29,7 @@ public class CircleShape extends Shape{
             float radius = (float)Math.hypot(centerPoint.x - onCirclePoint.x,
                     centerPoint.y - onCirclePoint.y);
             canvas.drawCircle(centerPoint.x, centerPoint.y, radius,mPaint);
-
+            canvas.drawCircle(onCirclePoint.x, onCirclePoint.y, RCICLE_ADIUS, mPaint);
         }
     }
 }

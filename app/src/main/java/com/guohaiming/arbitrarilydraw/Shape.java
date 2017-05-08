@@ -3,6 +3,7 @@ package com.guohaiming.arbitrarilydraw;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.guohaiming.arbitrarilydraw.shapes.CircleShape;
 import com.guohaiming.arbitrarilydraw.shapes.LineShape;
@@ -10,26 +11,35 @@ import com.guohaiming.arbitrarilydraw.shapes.MiddleLineShape;
 import com.guohaiming.arbitrarilydraw.shapes.PointShape;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 
 /**
  * Created by guoguo on 17-4-24.
  */
 
 abstract public class Shape {
-
+    private static final String TAG = "Shape";
+    protected int mSimilartDistance = 5;
     public enum Format {
         POINT,
         LINE,
         CICLE,
         MIDDLE_LINE
     }
+
     protected Format mFormat;
     protected ArrayList<Point> mPoints = new ArrayList<>();
     protected Paint mPaint;
+    protected Sketch mBelongedToSketch;
+    protected ArrayList<Point> mVertexes = new ArrayList<>();
     public Shape(Format format, Paint paint){
         mFormat = format;
         mPaint = paint;
+    }
+
+    public void setBelongedToSketch(Sketch sketch){
+        if(sketch != null){
+            mBelongedToSketch = sketch;
+        }
     }
 
     public static Shape createShape(Format format, Paint paint){
@@ -73,12 +83,41 @@ abstract public class Shape {
         if(p != null && mPoints != null){
             int smilarPointIndex = filterSmilarPoint(p);
             if(smilarPointIndex >= 0)return;
-            mPoints.add(p);
+            Point nearedPoint = getExistedNearPoint(p);
+            Log.d(TAG, "targetPoint = "+p+", nearPoint = "+nearedPoint);
+            if(nearedPoint != null){
+                mPoints.add(nearedPoint);
+            } else {
+                mPoints.add(p);
+            }
         }
     }
 
+    public ArrayList<Point> getVertexes(){
+        return mVertexes;
+    }
+
+    public void collectionVertexes(){
+        mVertexes.add(mPoints.get(0));
+        mVertexes.add(mPoints.get(mPoints.size() - 1));
+    }
+    public void startToDrawShape(){
+
+    }
+
+    public void finishedToDrawShape(){
+        collectionVertexes();
+        mBelongedToSketch.mVertexes.addAll(mVertexes);
+    }
+
+    private  Point getExistedNearPoint(Point point){
+        if(mBelongedToSketch == null)return null;
+        Point nearPoint = mBelongedToSketch.getNearExistedPoint(point);
+        return nearPoint;
+    }
+
     public void reset(){
-        if(mPoints !=null && !mPoints.isEmpty()){
+        if(mPoints !=null){
             mPoints.clear();
         }
     }
@@ -97,12 +136,16 @@ abstract public class Shape {
         return index;
     }
 
+    public void setSimilartDistance(int distance){
+        mSimilartDistance = distance;
+    }
+
     protected boolean isSmilarPoint(Point p1, Point p2){
         boolean isSmilar = false;
         if( p1 != null && p2 != null){
             int dx = Math.abs(p1.x - p2.x);
             int dy = Math.abs(p1.y - p2.y);
-            if(dx < 5 && dy < 5){
+            if(dx < mSimilartDistance && dy < mSimilartDistance){
                 isSmilar = true;
             }
         }
